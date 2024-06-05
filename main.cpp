@@ -4,7 +4,7 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <windows.h>
+#include <windows.h> // Sleep(ms  )
 
 using namespace std;
 
@@ -26,7 +26,7 @@ void setup()
     player.y= height/2;
 
     fruit.x= rand()% widht;
-    fruit.y= rand()% height;
+    fruit.y= rand()% height; // this line grantee that fruit.y is always less than the height 
 
     gameOver= false;
     score=0;
