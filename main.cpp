@@ -1,3 +1,4 @@
+//  https://www.youtube.com/watch?v=PSoLD9mVXTA
 //Code Source >>>>  https://www.youtube.com/watch?v=px3VIvC4pUA&list=PLkiD2wMfuiHcw--LDS8h2wv5rlcDX6cON 
 //#include "stdafx.h"
 
@@ -85,9 +86,9 @@ void draw()
 
 void input()
 {
-if(kbhit)
+if(_kbhit)
 {
-    switch (getche())
+    switch (_getche())
     {
     case 'w':
     case 'W':
@@ -105,9 +106,12 @@ if(kbhit)
     case 'D':
         dir= RIGHT;
         break;            
-    
+    case 'x':
+    case 'X':
+        gameOver= true;
+        break; 
     default:
-        dir=STOP;
+       // dir=STOP;
         break;
     }
 }
@@ -171,6 +175,13 @@ int main()
 	cout << "Snake Game by MP:....";
 
     setup();
+    CONSOLE_CURSOR_INFO ci;
+
+    HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+    ci.bVisible=false;
+    ci.dwSize=10;
+
+    SetConsoleCursorInfo(output , &ci);
 
     while (!gameOver)
     {
