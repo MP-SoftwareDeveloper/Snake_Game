@@ -1,3 +1,4 @@
+//Code Source >>>>  https://www.youtube.com/watch?v=px3VIvC4pUA&list=PLkiD2wMfuiHcw--LDS8h2wv5rlcDX6cON 
 //#include "stdafx.h"
 
 #include <iostream>
@@ -18,7 +19,8 @@ struct point
 };
 
 point player, fruit;
-
+point tail[400];
+int n_tail;
 enum direction{STOP=0,LEFT, RIGHT, UP, DOWN};
 direction dir;
 
@@ -32,6 +34,8 @@ void setup()
 
     gameOver= false;
     score=0;
+
+    n_tail=0;
 }
 
 void draw()
@@ -57,8 +61,19 @@ void draw()
             {
                  cout<< "X";   
             }
-            else
-                cout<<" ";
+            else 
+            {
+                bool flag=0;
+                for(int k=0; k<n_tail;k++)
+                if(j==tail[k].x && i==tail[k].y){
+                    cout<< "o";
+                    flag=true;
+                }
+
+                if( flag ==false)
+                 cout<<" ";
+            }
+                
         } 
      cout<< endl;   
     }
@@ -101,6 +116,15 @@ if(kbhit)
 
 void logic()
 {
+    for(int i=n_tail; i>=1; i--)
+    {
+        tail[i].x=tail[i-1].x;
+        tail[i].y=tail[i-1].y;
+    }
+
+    tail[0].x=player.x;
+    tail[0].y=player.y;
+
     switch (dir)
     {
     case LEFT:
@@ -136,6 +160,8 @@ void logic()
 
         fruit.x= rand()% (widht-2)+1;
         fruit.y= rand()% (height-2)+1; // this line grantee that fruit.y is always less than the height 
+
+        n_tail++;
     } 
 }
 
